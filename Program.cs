@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using rottoApp.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<TodoContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("TodoContext") ?? throw new InvalidOperationException("Connection string 'TodoContext' not found.")));
 
 // Add services to the container.
 
