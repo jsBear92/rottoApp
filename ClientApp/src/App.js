@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Layout from "./components/Layout";
 import Todo from "./components/Todo";
-import Map from "./components/Map";
+import MapApp from "./components/MapApp";
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="todo" element={<Todo />} />
-          <Route path="map" element={<Map />} />
+          <Route path="map" element={<MapApp />} />
         </Route>
       </Routes>
     </BrowserRouter>
