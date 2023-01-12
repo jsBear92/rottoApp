@@ -19,7 +19,7 @@ namespace rottoApp.Controllers
         [Route("GetTodos")]
         public IActionResult GetTodos()
         {
-            List<Todo> list = _context.Todo.ToList();
+            List<Todo> list = _context.rottoApp.ToList();
             return StatusCode(StatusCodes.Status200OK, list);
         }
     }

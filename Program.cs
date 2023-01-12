@@ -1,9 +1,13 @@
-using Microsoft.EntityFrameworkCore;
 using rottoApp.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<TodoContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("TodoContext") ?? throw new InvalidOperationException("Connection string 'TodoContext' not found.")));
+    options.UseMySql(builder.Configuration.GetConnectionString("rottoAppDB"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("rottoAppDB"))));
+
 
 // Add services to the container.
 

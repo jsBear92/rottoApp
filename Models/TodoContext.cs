@@ -1,18 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace rottoApp.Models
 {
     public class TodoContext : DbContext
     {
-        public TodoContext (DbContextOptions<TodoContext> options)
-            : base(options)
+        public TodoContext(DbContextOptions<TodoContext> options) : base(options)
         {
         }
 
-        public DbSet<rottoApp.Models.Todo> Todo { get; set; } = default!;
+        // rottoApp is table name
+        public DbSet<Todo> rottoApp { get; set; } = default!;
     }
 }
