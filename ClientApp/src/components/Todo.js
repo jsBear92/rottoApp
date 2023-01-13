@@ -27,6 +27,7 @@ const Todo = () => {
                                 <th>ID</th>
                                 <th>Title</th>
                                 <th>Content</th>
+                                <th>Due Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,6 +37,7 @@ const Todo = () => {
                                         <td>{item.todoId}</td>
                                         <td>{item.title}</td>
                                         <td>{item.content}</td>
+                                        <td>{item.dueDate}</td>
                                     </tr>
                                 ))
                             }
