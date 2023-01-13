@@ -22,3 +22,11 @@
     transform: translate(-50%, -50%);
     background-color: dark;
 }
+
+.modal-input {
+    border: hidden;
+}
+
+.modal-input:focus {
+    outline: none;
+}

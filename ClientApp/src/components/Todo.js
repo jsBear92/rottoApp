@@ -9,22 +9,7 @@ import Col from 'react-bootstrap/Col';
 import './custom.css';
 
 const Todo = () => {
-
-    // Modal States
-    const [show, setShow] = useState(false);
-    const handleClose = () => {
-        setTitle([]);
-        setContent([]);
-        setDueDate([]);
-        setShow(false);
-    }
-    const handleShow = (item) => {
-        console.log(item);
-        setTitle(item.title);
-        setContent(item.content);
-        setDueDate(item.dueDate);
-        setShow(true);
-    }
+    const [comp, setComp] = useState("");
 
     // Modal data States
     const [title, setTitle] = useState([]);
@@ -34,12 +19,55 @@ const Todo = () => {
     // Todo api State
     const [todos, setTodos] = useState([])
 
+    // Modal States
+    const [show, setShow] = useState(false);
+
+    // Attach data onto Modal and detach
+    const handleClose = () => {
+        setTitle([]);
+        setContent([]);
+        setDueDate([]);
+        setShow(false);
+    }
+    const handleShow = (item) => {
+        setTitle(item.title);
+        setContent(item.content);
+        setDueDate(item.dueDate);
+        setShow(true);
+    }
+    const handleChange = () => {
+        const nextChange = [...todos];
+        const newData = nextChange.find(
+            a => a.title === comp || a.content === comp || a.dueDate === comp
+        );
+        newData.title = title;
+        newData.content = content;
+        newData.dueDate = dueDate;
+        setTodos(nextChange);
+        setShow(false);
+    }
+
+    // change datas of Modal
+    const titleChange = (event) => {
+        setTitle(event.target.value);
+        setComp(event.target._wrapperState.initialValue);
+    }
+    const contentChange = event => {
+        setContent(event.target.value);
+        setComp(event.target._wrapperState.initialValue);
+    }
+    const dueDateChange = event => {
+        setDueDate(event.target.value);
+        setComp(event.target._wrapperState.initialValue);
+    }
+
+
+
     // call api
     useEffect(() => {
         fetch("api/todo/GetTodos")
             .then(response => { return response.json() })
             .then(responseJson => {
-                console.log(responseJson)
                 setTodos(responseJson)
             })
     }, [])
@@ -61,11 +89,17 @@ const Todo = () => {
                         </Row>
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
-                                <Modal.Title>{title}</Modal.Title>
+                                <Modal.Title><input className='modal-input' onChange={(e) => titleChange(e)} value={title} /></Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <p>{content}</p>
-                                <p>{dueDate}</p>
+                                <div>
+                                    <h3>Content</h3>
+                                    <input className='modal-input' onChange={contentChange} value={content} />
+                                </div>
+                                <div>
+                                    <h4>Due Date</h4>
+                                    <input className='modal-input' onChange={dueDateChange} value={dueDate} />
+                                </div>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant='danger'>
@@ -74,7 +108,7 @@ const Todo = () => {
                                 <Button variant="secondary" onClick={handleClose}>
                                     Close
                                 </Button>
-                                <Button Button variant="primary" onClick={handleClose}>
+                                <Button Button variant="primary" onClick={handleChange}>
                                     Save Changes
                                 </Button>
                             </Modal.Footer>
