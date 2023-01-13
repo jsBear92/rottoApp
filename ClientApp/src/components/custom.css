@@ -30,3 +30,20 @@
 .modal-input:focus {
     outline: none;
 }
+
+.row-input {
+    position: absolute;
+    flex: content;
+    left: auto;
+    bottom: 30px;
+}
+#todo-input {
+    width: 1000px;
+    height: 40px;
+    float: left;
+    background-color: azure;
+}
+.add-button {
+    width: 100px;
+    margin-left: 10px;
+}

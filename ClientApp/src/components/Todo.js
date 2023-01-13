@@ -3,12 +3,15 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import './custom.css';
 
 const Todo = () => {
+
+    // Temp storage for comparison index
     const [comp, setComp] = useState("");
 
     // Modal data States
@@ -34,6 +37,7 @@ const Todo = () => {
         setContent(item.content);
         setDueDate(item.dueDate);
         setShow(true);
+        console.log(todos);
     }
     const handleChange = () => {
         const nextChange = [...todos];
@@ -51,6 +55,7 @@ const Todo = () => {
     const titleChange = (event) => {
         setTitle(event.target.value);
         setComp(event.target._wrapperState.initialValue);
+        console.log(event);
     }
     const contentChange = event => {
         setContent(event.target.value);
@@ -59,8 +64,24 @@ const Todo = () => {
     const dueDateChange = event => {
         setDueDate(event.target.value);
         setComp(event.target._wrapperState.initialValue);
+        console.log(event);
     }
 
+    // Add Todo
+    const [inputValue, setInputValue] = useState('');
+    const inputChange = event => {
+        setInputValue(event.target.value);
+    }
+    const addInput = () => {
+        let nextId = todos.length + 1;
+
+        setTodos((todos) => ([...todos, {
+            todoId: nextId++,
+            title: inputValue,
+            content: '',
+            dueDate: '2023-01-13',
+        }]));
+    }
 
 
     // call api
@@ -116,6 +137,10 @@ const Todo = () => {
                     </div>
                 ))
             }
+            <div className='row-input'>
+                <Form.Control id='todo-input' type='text' placeholder='Add Todo' onChange={inputChange} />
+                <Button className='add-button' variant='success' onClick={addInput}>Add</Button>
+            </div>
         </Container>
     );
 }
