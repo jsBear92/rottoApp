@@ -1,15 +1,25 @@
 .row-todo {
-    margin-top: 5px;
-    margin-left: 25px;
-    margin-right: 140px;
+    display: inline-block;
+    width: 1120px;
+    font-size: 1.5rem;
+    margin: 0 20px
 }
 .row-todo:hover {
     background-color: lightgrey;
 }
+.todo-title {
+    margin: 0 100px 0 10px;
+}
+.todo-content {
+    margin: 0 50px;
+}
+.todo-date {
+    float: right;
+}
 
 .row-input {
     display: flex;
-    margin: 5px;
+    margin: 10px 5px;
     bottom: 50px;
 }
 #todo-input {
@@ -18,4 +28,14 @@
 .add-button {
     margin-right: 20px;
     width: 100px;
+}
+.row-del {
+    display: inline;
+    padding: 0 2px;
+    font-size: 1.2rem;
+    width: fit-content;
+    height: fit-content;
+}
+.row-del:hover {
+    background-color: #dc3545, 0.3;
 }

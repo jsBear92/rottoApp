@@ -27,9 +27,16 @@ const Todo = () => {
     }, [])
 
     // Change Todo
-    const handleClick = (index, newValue) => {
+    const handleClick = (index, newTitle, newContent) => {
         const newArray = [...todos];
-        newArray.find(i => i.todoId === index).title = newValue;
+        if (!newTitle) {
+            newArray.find(i => i.todoId === index).content = newContent;
+        } else if (!newContent) {
+            newArray.find(i => i.todoId === index).title = newTitle;
+        } else {
+            newArray.find(i => i.todoId === index).title = newTitle;
+            newArray.find(i => i.todoId === index).content = newContent;
+        }
         setTodos(newArray);
     }
 
@@ -67,7 +74,6 @@ const Todo = () => {
                     ]);
                 }}>Add</Button>
            </div>
-           <button onClick={()=>console.log(todos)}>Click</button>
         </>
     );
 }
