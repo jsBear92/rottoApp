@@ -1,0 +1,21 @@
+.row-todo {
+    margin-top: 5px;
+    margin-left: 25px;
+    margin-right: 140px;
+}
+.row-todo:hover {
+    background-color: lightgrey;
+}
+
+.row-input {
+    display: flex;
+    margin: 5px;
+    bottom: 50px;
+}
+#todo-input {
+    margin: 0 20px;
+}
+.add-button {
+    margin-right: 20px;
+    width: 100px;
+}
