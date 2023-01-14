@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
-const ModalContent = ({data, changeValue, onClick}) => {
+const ModalContent = ({data, onClick, changeValue, deleteTodo}) => {
 
     const [titleValue, setTitleValue] = useState('');
 
@@ -10,6 +10,12 @@ const ModalContent = ({data, changeValue, onClick}) => {
         onClick();
     }
 
+    const deleteClick = (index) => {
+        deleteTodo(index);
+        onClick();
+    }
+
+
     return (
         <>
             <Modal.Header closeButton>
@@ -17,8 +23,8 @@ const ModalContent = ({data, changeValue, onClick}) => {
             </Modal.Header>
             <Modal.Body><input defaultValue={data.content} /></Modal.Body>
             <Modal.Footer>
-                <Button variant='danger' type='submit'>Delete</Button>
-                <Button variant='primary' type='submit' onClick={() => handleClick(data.todoId, titleValue)}>Change</Button>
+                <Button variant='danger' onClick={() => deleteClick(data.todoId)} >Delete</Button>
+                <Button variant='primary' onClick={() => handleClick(data.todoId, titleValue)}>Change</Button>
                 <Button variant='secondary' onClick={onClick}>Close</Button>
             </Modal.Footer>
         </>

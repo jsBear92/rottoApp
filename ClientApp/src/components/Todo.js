@@ -26,16 +26,31 @@ const Todo = () => {
             })
     }, [])
 
+    // Change Todo
     const handleClick = (index, newValue) => {
         const newArray = [...todos];
         newArray.find(i => i.todoId === index).title = newValue;
         setTodos(newArray);
     }
+
+    // Delete Todo
+    const deleteTodo = (index) => {
+        setTodos(todos.filter(t => t.todoId !== index));
+    }
+
+    const check = (todo) => {
+        if (todo.length === 0)
+            return 1;
+        else if (todo.length === 1)
+            return 2;
+        else
+            return todo.map(t => t.todoId).reduce((a, b) => Math.max(a, b))+1;
+    }
     
 
     return (
         <>
-            { todos.map((item, i) => <ModalWindow key={i} changeValue={handleClick} data={item} />) }
+            { todos.map((item, i) => <ModalWindow key={i} changeValue={handleClick} deleteTodo={deleteTodo} data={item} />) }
             {/* Add Todo*/}
             <div className='row-input'>
                 <Form.Control id='todo-input' type='text' placeholder='Add Todo' value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
@@ -44,13 +59,15 @@ const Todo = () => {
                     setTodos([
                         ...todos,
                         {
-                            todoId: todos.length+1,
+                            todoId: check(todos),
                             title: inputValue,
+                            content: '',
                             dueDate: getCurrentDate()
                         }
                     ]);
                 }}>Add</Button>
            </div>
+           <button onClick={()=>console.log(todos)}>Click</button>
         </>
     );
 }
