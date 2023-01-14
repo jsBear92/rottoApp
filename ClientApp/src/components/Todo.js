@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ModalWindow from './ModalWindow'
+import ModalWindow from './Modal/ModalWindow'
 
 import { Form, Button } from 'react-bootstrap';
 

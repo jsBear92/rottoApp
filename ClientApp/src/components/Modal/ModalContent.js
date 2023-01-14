@@ -5,6 +5,11 @@ const ModalContent = ({data, changeValue, onClick}) => {
 
     const [titleValue, setTitleValue] = useState('');
 
+    const handleClick = (index, title) => {
+        changeValue(index, title);
+        onClick();
+    }
+
     return (
         <>
             <Modal.Header closeButton>
@@ -13,7 +18,7 @@ const ModalContent = ({data, changeValue, onClick}) => {
             <Modal.Body><input defaultValue={data.content} /></Modal.Body>
             <Modal.Footer>
                 <Button variant='danger' type='submit'>Delete</Button>
-                <Button variant='primary' type='submit' onClick={()=> changeValue(data.todoId, titleValue)} onExit>Change</Button>
+                <Button variant='primary' type='submit' onClick={() => handleClick(data.todoId, titleValue)}>Change</Button>
                 <Button variant='secondary' onClick={onClick}>Close</Button>
             </Modal.Footer>
         </>
