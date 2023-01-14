@@ -27,15 +27,28 @@ const Todo = () => {
     }, [])
 
     // Change Todo
-    const handleClick = (index, newTitle, newContent) => {
+    const handleClick = (index, arr) => {
         const newArray = [...todos];
-        if (!newTitle) {
-            newArray.find(i => i.todoId === index).content = newContent;
-        } else if (!newContent) {
-            newArray.find(i => i.todoId === index).title = newTitle;
-        } else {
-            newArray.find(i => i.todoId === index).title = newTitle;
-            newArray.find(i => i.todoId === index).content = newContent;
+        const newT = newArray.find(t => t.todoId === index);
+        if (arr.title !== '' && arr.content !== '' && arr.dueDate !== '') {
+            newT.title = arr.title;
+            newT.content = arr.content;
+            newT.dueDate = arr.dueDate;
+        } else if (arr.title !== '' && arr.content !== '') {
+            newT.title = arr.title;
+            newT.content = arr.content;
+        } else if (arr.title !== '' && arr.dueDate !== '') {
+            newT.title = arr.title;
+            newT.dueDate = arr.dueDate;
+        } else if (arr.content !== '' && arr.dueDate !== '') {
+            newT.content = arr.content;
+            newT.dueDate = arr.dueDate;
+        } else if (arr.title !== '') {
+            newT.title = arr.title;
+        } else if (arr.content !== '') {
+            newT.content = arr.content;
+        } else if (arr.duDate !== '') {
+            newT.dueDate = arr.dueDate;
         }
         setTodos(newArray);
     }
