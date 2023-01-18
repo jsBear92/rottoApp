@@ -6,6 +6,8 @@ import Layout from "./components/Layout";
 import Todo from "./components/Todo";
 import MapApp from "./components/MapApp";
 
+import './custom.css';
+
 const App = () => {
   return (
     <BrowserRouter>
