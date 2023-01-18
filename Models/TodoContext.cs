@@ -11,6 +11,7 @@ namespace rottoApp.Models
         }
 
         // rottoApp is table name
-        public DbSet<Todo> rottoApp { get; set; } = default!;
+        public DbSet<Todo> rottoApp { get; set; } = null!;
     }
 }
+

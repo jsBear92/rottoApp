@@ -26,6 +26,21 @@ const Todo = () => {
             })
     }, [])
 
+    const handleAddTodo = () => {
+        const newTodo = {todoId: check(todos), title: inputValue, content: '', dueDate: getCurrentDate()};
+        setInputValue('');
+        setTodos([...todos, newTodo]);
+        handleSubmit(newTodo);
+    }
+
+    const handleSubmit = (item) => {
+        fetch('/api/todo/PostTodos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(item)
+        });
+    }
+
     // Change Todo
     const handleClick = (index, arr) => {
         const newArray = [...todos];
@@ -56,6 +71,15 @@ const Todo = () => {
     // Delete Todo
     const deleteTodo = (index) => {
         setTodos(todos.filter(t => t.todoId !== index));
+        handleDelete(index);
+        console.log(index);
+    }
+    const handleDelete = async (id) => {
+        fetch(`/api/todo/DeleteTodos/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json'}
+        })
+        .then (data => console.log(data));
     }
 
     const check = (todo) => {
@@ -74,18 +98,7 @@ const Todo = () => {
             {/* Add Todo*/}
             <div className='row-input'>
                 <Form.Control id='todo-input' type='text' placeholder='Add Todo' value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-                <Button className='add-button' variant='success' onClick={() => {
-                    setInputValue('');
-                    setTodos([
-                        ...todos,
-                        {
-                            todoId: check(todos),
-                            title: inputValue,
-                            content: '',
-                            dueDate: getCurrentDate()
-                        }
-                    ]);
-                }}>Add</Button>
+                <Button className='add-button' variant='success' onClick={handleAddTodo}>Add</Button>
            </div>
         </>
     );
