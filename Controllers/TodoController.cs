@@ -31,9 +31,9 @@ namespace rottoApp.Controllers
 
         [HttpGet("{id}")]
         [Route("GetTodoItem")]
-        public async Task<ActionResult<Todo>> GetTodoItem(int? id)
+        public async Task<ActionResult<Todo>> GetTodoItem(int id)
         {
-            var todoItem = await _context.rottoApp.Include(t => t.todoId).FirstOrDefaultAsync(t => t.todoId == id);
+            var todoItem = await _context.rottoApp.FirstOrDefaultAsync(t => t.todoId == id);
 
             if (todoItem == null)
             {
@@ -41,6 +41,36 @@ namespace rottoApp.Controllers
             }
 
             return todoItem;
+        }
+
+        [HttpPut("{id}")]
+        [Route("UpdateTodoItem")]
+        public async Task<IActionResult> UpdateTodoItem(int id, Todo todo)
+        {
+            if (id != todo.todoId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(todo).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TodoItemExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
         [HttpPost]
@@ -55,9 +85,9 @@ namespace rottoApp.Controllers
 
         [HttpDelete("{id}")]
         [Route("DeleteTodos")]
-        public async Task<IActionResult> DeleteTodos(int? id)
+        public async Task<IActionResult> DeleteTodos(int id)
         {
-            var todoItem = await _context.rottoApp.FindAsync(id);
+            var todoItem = await _context.rottoApp.FirstOrDefaultAsync(t => t.todoId == id);
             if (todoItem == null)
             {
                 return NotFound();
@@ -67,6 +97,11 @@ namespace rottoApp.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        private bool TodoItemExists(int id)
+        {
+            return _context.rottoApp.Any(e => e.todoId == id);
         }
     }
 }

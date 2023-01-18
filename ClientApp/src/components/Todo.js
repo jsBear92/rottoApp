@@ -66,6 +66,17 @@ const Todo = () => {
             newT.dueDate = arr.dueDate;
         }
         setTodos(newArray);
+        changeTodo(index, newT);
+    }
+
+    const changeTodo = async (id, todo) => {
+        fetch(`/api/todo/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(todo)
+        })
+        .then (data => console.log(data))
+        .catch (e => console.log(e));
     }
 
     // Delete Todo
@@ -75,11 +86,12 @@ const Todo = () => {
         console.log(index);
     }
     const handleDelete = async (id) => {
-        fetch(`/api/todo/DeleteTodos/${id}`, {
+        fetch(`/api/todo/${id}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json'}
         })
-        .then (data => console.log(data));
+        .then (data => console.log(data))
+        .catch (e => console.log(e));
     }
 
     const check = (todo) => {
