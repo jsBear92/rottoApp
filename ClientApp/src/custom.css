@@ -39,3 +39,14 @@
 .row-del:hover {
     background-color: #dc3545, 0.3;
 }
+.modal-input {
+    border-style: hidden;
+}
+.modal-input:focus {
+    outline: none;
+    border-style:groove;
+    border-color: lightgray;
+}
+input {
+    display: block;
+}
