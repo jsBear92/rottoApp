@@ -57,7 +57,7 @@ const ModalContent = ({data, onClick, changeValue, deleteTodo}) => {
             </Modal.Header>
             <Modal.Body>
                 <input className="modal-input" defaultValue={data.content} onKeyDown={(e) => pressEnter(e, data.todoId)} onChange={(e) => handleContent(e)} />
-                <DatePicker className="modal-input" dateFormat={'yyyy-MM-dd'} selected={startDate} onChange={(date) => setStartDate(date)} />
+                <DatePicker className="modal-input" dateFormat={'yyyy-MM-dd'} selected={startDate} onSelect={(date) => setStartDate(date)} onChange={(e) => handleDate(e)} />
                 <input className="modal-input" defaultValue={data.dueDate} onKeyDown={(e) => pressEnter(e, data.todoId)} onChange={(e) => handleDate(e)} />
             </Modal.Body>
             <Modal.Footer>
